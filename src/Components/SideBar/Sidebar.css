@@ -1,0 +1,52 @@
+.sidebar{
+    display: flex;
+    flex-direction: column;
+}
+.logo{
+    margin: 47px 81px 46px 81px;
+}
+
+.sidebar-menu{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+}
+
+.icon{
+    display: flex;
+    margin-left: 26px;
+}
+.menu-item{
+    display: flex;
+    align-items: center;
+    height: 52px;
+    color:white;
+    cursor: pointer;
+    border-radius: 0px 25px 25px 0px;
+}
+.item-click {
+    margin-left: 4px;  
+    cursor: pointer;
+ }
+
+ .isActive{
+    background: #ffffff;
+    color: #1ED760;
+ }
+
+ .logout-click{
+    margin-left: 4px;  
+    cursor: pointer;
+ }
+.sidebar-icon{
+    margin: 17px 11.5px 17px 26px
+}
+
+.logout{
+    margin-left: 26px;
+    display: flex;
+    align-items: center;    
+    color: white;
+    flex: 1;
+    align-items: end;
+}

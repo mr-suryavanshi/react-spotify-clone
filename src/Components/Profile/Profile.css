@@ -1,0 +1,56 @@
+.Profile{
+margin: 47px;
+flex-direction: column;
+}
+
+.profile-header{
+    display: flex;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.profile-content{
+ display: flex;
+}
+
+.profile-picture img{
+    width: 178px;
+    margin-top: 33px;
+    border-radius: 50%;
+}
+
+.profile-name{
+    display: flex;
+    margin: 64px 29px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.profile-username{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    color: #FFFFFF;
+}
+
+.profile-email{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 19px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.profile-name button{
+    background: #1ED760;
+    border-radius: 25px;
+    padding: 15px 30px;
+    margin-top: 14px;
+    color: #fff;
+    cursor: pointer
+}
+
+.profile-name button a{
+    color: white;
+    text-decoration: none;
+}
