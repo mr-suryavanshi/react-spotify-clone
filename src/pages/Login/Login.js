@@ -3,11 +3,24 @@ import logo from "../../assets/spotifyLogo.svg";
 import { Formik, Form } from "formik";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
 
 function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoggedIn,setIsLoggedIn] = useState(false);
+
+  const dispatch = useDispatch()
+
+  const handleLogIn = () =>{
+    setIsLoggedIn(true);
+    const action = {
+      type : 'LOGGED_IN',
+      loggedIn: "user logged in"
+    }
+    dispatch(action)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,6 +74,7 @@ function Login() {
                 <button
                   className=" input-button"
                   type="submit"
+                  onClick={handleLogIn}
                 >
                   LOG IN
                 </button>

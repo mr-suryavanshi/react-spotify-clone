@@ -25,7 +25,7 @@ const Profile = () => {
       <div className="profile-header">Profile</div>
       <div className="profile-content">
         <div className="profile-picture">
-          <img src={data?.images?.[0].url} />
+          <img src={data?.images?.[0].url} alt=""/>
         </div>
         <div className="profile-info">
           <div className="profile-name">

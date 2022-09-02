@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import BellIcon from "../Icons/BellIcon";
+import {useSelector} from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 function DashboardHome({ setSelected }) {
   const [profilePicture, setProfilePicture] = useState({});
   const [playList, setPlayList] = useState({});
   const token = process.env.REACT_APP_ACCESS_TOKEN;
+  const loggedIn = useSelector(state => state.loggedIn)
+
+  const isLoggedIn = useSelector(state => state.isLoggedIn)
+  const navigate = useNavigate();
+
   useEffect(() => {
     const url = `https://api.spotify.com/v1/me`;
     fetch(url, {
@@ -23,11 +30,14 @@ function DashboardHome({ setSelected }) {
         console.log("error", error);
         alert(error);
       });
+      if(!isLoggedIn){
+        navigate("/");
+      }
   }, []);
 
   useEffect(() => {
     const url = `	https://api.spotify.com/v1/browse/featured-playlists?limit=4`;
-
+    console.log(loggedIn)
     fetch(url, {
       method: "get",
       headers: new Headers({

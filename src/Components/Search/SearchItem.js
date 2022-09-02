@@ -1,6 +1,7 @@
 import React from "react";
 import PlayIcon from "../Icons/PlayIcon";
 import "./Search.css";
+import {useDispatch} from "react-redux";
 
 function SearchItem({ data, setPlay }) {
 
@@ -9,6 +10,10 @@ function SearchItem({ data, setPlay }) {
     const seconds = ((data % 60000) / 1000).toFixed(0);
     return `${minutes}:${(seconds < 10 ? "0" : "")}${seconds}`;
   }
+
+  const dispatch = useDispatch()
+
+  // console.log("data",data);
   return (
     <div className="search-item">
       <div className="search-song-info">
@@ -26,7 +31,13 @@ function SearchItem({ data, setPlay }) {
         <div className="song-info-right">
           <div className="search-play-info">
             <div className="play-duration">{convertTimeStamp(data?.duration_ms)}</div>
-            <div className="play" onClick={()=> {setPlay(data)} }>
+            <div className="play" 
+              onClick={()=> {const action = {
+                    type: 'CURRENT_SONG',
+                    play: data
+                  }
+                dispatch(action)}
+              }>
               <PlayIcon width="25" height="25" />
             </div>
           </div>

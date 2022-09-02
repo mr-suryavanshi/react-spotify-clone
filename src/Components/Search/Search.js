@@ -8,7 +8,7 @@ const Search = ({ play, setPlay , setAllTracks}) => {
   const [showData, setShowData] = useState(false);
   const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
-      console.log(e.target.value);
+      // console.log(e.target.value);
       const searchQuery = e.target.value;
       setIsLoading(true);
       // const getSearchData = await getSearchResult(searchQuery);
@@ -27,7 +27,7 @@ const Search = ({ play, setPlay , setAllTracks}) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setIsLoading(false);
           setData(data.tracks.items);
           setShowData(true);
