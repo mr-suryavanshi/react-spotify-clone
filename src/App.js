@@ -4,7 +4,10 @@ import Login from "./pages/Login/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./Components/Profile/Profile";
+import { connect } from "react-redux/es/exports";
+
 function App() {
+
   return (
     <div className="App">
       <Routes>
@@ -16,4 +19,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect( store => store)(App);

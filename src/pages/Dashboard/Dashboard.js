@@ -6,6 +6,8 @@ import Profile from "../../Components/Profile/Profile";
 import Search from "../../Components/Search/Search";
 import Playlist from "../../Components/Playlist";
 import "./dashboard.css";
+// import {useSelector} from "react-redux";
+
 
 function Dashboard() {
   const [selected, setSelected] = useState("home");
