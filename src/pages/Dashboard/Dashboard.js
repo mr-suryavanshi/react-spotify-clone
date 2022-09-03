@@ -6,15 +6,12 @@ import Profile from "../../Components/Profile/Profile";
 import Search from "../../Components/Search/Search";
 import Playlist from "../../Components/Playlist";
 import "./dashboard.css";
-// import {useSelector} from "react-redux";
-
 
 function Dashboard() {
   const [selected, setSelected] = useState("home");
   const [play, setPlay] = useState("");
   const [allTracks,setAllTracks] = useState([]);
-  // const [play, setPlay] = useState("");
-
+  
   return (
     <div className="dashboard">
       <div className="dashboard-container">

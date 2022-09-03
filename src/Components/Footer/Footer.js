@@ -4,8 +4,9 @@ import PlayIcon from "../Icons/PlayIcon";
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import {useSelector ,useDispatch} from "react-redux"
+import {getFirstSongName} from '../utils/helper'
 
-const Footer = ({ setPlay, allTracks }) => {
+const Footer = ({ allTracks }) => {
 
   const play = useSelector(state => state.play)
   const dispatch = useDispatch();
@@ -25,8 +26,6 @@ const Footer = ({ setPlay, allTracks }) => {
   }
 
 
-  // const dispatch = useDispatch()
-
   const handleNextClick = () => {
     const currentIndex = allTracks.findIndex(track => track.id === play.id);
     if(allTracks.length > currentIndex+1){
@@ -37,26 +36,15 @@ const Footer = ({ setPlay, allTracks }) => {
       }
       dispatch(action)
     }
-    // setPlay(allTracks[currentIndex+1]);
-    console.log("Next",play);
   }
 
-  // const handleCurrentTrack = () => {
-  //   const action = {
-  //     type: 'CURRENT_SONG',
-  //     play: play
-  //   }
-  //   dispatch(action)
-  //   console.log("dispatch play: ",play)
-  // }
-  
   return (
     <div className="footer">
       <div className="song-icon">
         <img src={play?.album?.images?.[2].url} alt="" />
       </div>
       <div className="song">
-        <span id="song-name">{play?.name}</span>
+        <span id="song-name">{getFirstSongName(play?.name)}</span>
         <span id="artist-name">{play?.artists?.[0].name}</span>
       </div>
       <div className="play">

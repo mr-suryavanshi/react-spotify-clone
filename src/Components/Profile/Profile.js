@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
+import { getProfile} from "../../API/Index";
 
 const Profile = () => {
   const [data, setData] = useState();
-  useEffect(() => {
-    const url = `https://api.spotify.com/v1/me`;
-    const token = process.env.REACT_APP_ACCESS_TOKEN;
-    fetch(url, {
-      method: "get",
-      headers: new Headers({
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => console.log(error));
+  
+  useEffect(()  => {
+    (async () => {
+      const profileData = await getProfile();
+      setData(profileData)
+    })();
   }, []);
-
   return (
     <div className="Profile">
       <div className="profile-header">Profile</div>

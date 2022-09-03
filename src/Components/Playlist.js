@@ -1,46 +1,22 @@
 import React , { useEffect, useState }from "react";
+import { getProfile, getPlaylist } from "../API/Index";
 
 const Playlist = ({setSelected}) => {
   const [profilePicture, setProfilePicture] = useState({});
   const [playList, setPlayList] = useState({});
-  const token = process.env.REACT_APP_ACCESS_TOKEN;
   useEffect(() => {
-    const url = `https://api.spotify.com/v1/me`;
-    fetch(url, {
-      method: "get",
-      headers: new Headers({
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        setProfilePicture(data);
-      })
-      .catch((error) => {
-        console.log("error", error);
-        alert(error);
-      });
+    (async () => {
+      const profileData = await getProfile();
+      setProfilePicture(profileData)
+    })();
   }, []);
 
   useEffect(() => {
-    const url = `	https://api.spotify.com/v1/browse/featured-playlists?limit=8`;
-
-    fetch(url, {
-      method: "get",
-      headers: new Headers({
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        setPlayList(data.playlists);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+    (async() => {
+      const featuredPlaylist = await getPlaylist()
+      setPlayList(featuredPlaylist.playlists)
+    })()
+    }, []);
   return (
     <div className="dashboard-section">
       <div className="dashboard-header">

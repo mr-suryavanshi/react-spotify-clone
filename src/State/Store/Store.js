@@ -1,7 +1,6 @@
 import { createStore } from "redux";
 
 const initialState = {
-    loggedin : "redux is working",
     isModal : false,
     isLoggedIn: false,
     play : " "
@@ -10,10 +9,10 @@ const initialState = {
 const handleState = (state = initialState, action) =>{
     switch (action.type){
         case 'LOGGED_IN':
+            console.log("LOGGED_IN", action);
             return{
                 ...state,
-                loggedIn :action.loggedIn,
-                isLoggedIn : true
+                isLoggedIn : action.isLoggedIn
             }
         case 'CURRENT_SONG':
             return{

@@ -1,57 +1,38 @@
 import React, { useEffect, useState } from "react";
 import BellIcon from "../Icons/BellIcon";
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import {getProfile ,getDashboardPlaylist} from "../../API/Index";
 
 function DashboardHome({ setSelected }) {
   const [profilePicture, setProfilePicture] = useState({});
   const [playList, setPlayList] = useState({});
-  const token = process.env.REACT_APP_ACCESS_TOKEN;
-  const loggedIn = useSelector(state => state.loggedIn)
+  const dispatch = useDispatch()
 
+  const action = {
+    type: "LOGGED_IN",
+    isLoggedIn: true
+  }
+  dispatch(action);
   const isLoggedIn = useSelector(state => state.isLoggedIn)
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-    const url = `https://api.spotify.com/v1/me`;
-    fetch(url, {
-      method: "get",
-      headers: new Headers({
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        setProfilePicture(data);
-      })
-      .catch((error) => {
-        console.log("error", error);
-        alert(error);
-      });
+    (async () => {
+      const profileData = await getProfile();
+      setProfilePicture(profileData)
+    })();
+
+    (async() => {
+      const Playlist = await getDashboardPlaylist()
+      setPlayList(Playlist.playlists)
+    })()
+    console.log("isLoggedIn",isLoggedIn)
       if(!isLoggedIn){
         navigate("/");
       }
   }, []);
 
-  useEffect(() => {
-    const url = `	https://api.spotify.com/v1/browse/featured-playlists?limit=4`;
-    console.log(loggedIn)
-    fetch(url, {
-      method: "get",
-      headers: new Headers({
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        setPlayList(data.playlists);
-      })
-      .catch((error) => console.log(error));
-  }, []);
   return (
     <div className="dashboard-section">
       <div className="dashboard-header">

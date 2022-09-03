@@ -2,6 +2,7 @@ import React from "react";
 import PlayIcon from "../Icons/PlayIcon";
 import "./Search.css";
 import {useDispatch} from "react-redux";
+import {getFirstSongName} from '../utils/helper'
 
 function SearchItem({ data, setPlay }) {
 
@@ -10,20 +11,18 @@ function SearchItem({ data, setPlay }) {
     const seconds = ((data % 60000) / 1000).toFixed(0);
     return `${minutes}:${(seconds < 10 ? "0" : "")}${seconds}`;
   }
-
   const dispatch = useDispatch()
 
-  // console.log("data",data);
   return (
     <div className="search-item">
       <div className="search-song-info">
         <div className="song-info-left">
           <div className="search-song-icon">
-            <img src={data?.album.images?.[0].url} alt="" />
+            <img src={data?.album?.images?.[0].url} alt="" />
           </div>
           <div className="song">
             <div className="search-song">
-              <span id="search-song-name">{data?.name}</span>
+              <span id="search-song-name">{getFirstSongName(data?.name)}</span>
             </div>
             <span id="search-artist-name">{data?.name}</span>
           </div>

@@ -1,39 +1,23 @@
 import React, { useState } from "react";
-// import { getSearchResult } from "../../API/Index";
 import "./Search.css";
 import SearchItem from "./SearchItem";
-const Search = ({ play, setPlay , setAllTracks}) => {
+import {getSearchResult} from "../../API/Index"
+
+const Search = ({ setPlay , setAllTracks}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
   const [showData, setShowData] = useState(false);
   const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
-      // console.log(e.target.value);
       const searchQuery = e.target.value;
       setIsLoading(true);
-      // const getSearchData = await getSearchResult(searchQuery);
-      // setData(getSearchData);
-      // getSearchData?.lenght > 0 ? setIsLoading(false) : setIsLoading(true);
-      // console.log(getSearchData);
-      const url = `https://api.spotify.com/v1/search?type=track&include_external=audio&q=${searchQuery}&limit=3`;
-      const token = process.env.REACT_APP_ACCESS_TOKEN;
-      // console.log("token", token);
-      fetch(url, {
-        method: "get",
-        headers: new Headers({
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/x-www-form-urlencoded",
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log(data);
-          setIsLoading(false);
-          setData(data.tracks.items);
-          setShowData(true);
-          setAllTracks(data.tracks.items);
-        })
-        .catch((error) => console.log(error));
+        const searchResult = await getSearchResult(searchQuery);
+        if(searchResult){
+          setData(searchResult.tracks.items);
+          setIsLoading(false)
+          setShowData(true)
+          setAllTracks(searchResult.tracks.items)
+        }
     }
   };
 
@@ -51,12 +35,6 @@ const Search = ({ play, setPlay , setAllTracks}) => {
             isLoading ? (
               <h1>...Loading</h1>
             ) : (
-              // data?.map((song) => {
-              //   <div>
-              //     <h1>{song.track}</h1>
-              //     <h1>{song.artist}</h1>
-              //   </div>;
-              // })
               <div></div>
             )
           ) : (

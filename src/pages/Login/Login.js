@@ -3,24 +3,29 @@ import logo from "../../assets/spotifyLogo.svg";
 import { Formik, Form } from "formik";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux";
+import { useDispatch } from "react-redux"
 
 function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoggedIn,setIsLoggedIn] = useState(false);
+
+  const endpoint = process.env.REACT_APP_ENDPOINT
+  const redirectUri = process.env.REACT_APP_REDIRECT_URI;
+  const clientId = process.env.REACT_APP_CLIENT_ID;
+  const scopes = [
+    "user-read-email",
+    "user-read-private",
+    "user-read-currently-playing",
+    "user-read-recently-played",
+    "user-read-playback-state",
+    "user-top-read",
+    "user-read-playback-position",
+    "user-modify-playback-state",
+
+  ];
 
   const dispatch = useDispatch()
-
-  const handleLogIn = () =>{
-    setIsLoggedIn(true);
-    const action = {
-      type : 'LOGGED_IN',
-      loggedIn: "user logged in"
-    }
-    dispatch(action)
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +33,9 @@ function Login() {
       setUserName("");
       setUserName("");
       navigate("/dashboard");
+      window.open(`${endpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`, "_self");
+      return false;
+
     } else {
       if (!userName || !password) {
         setError("Please enter username and password");
@@ -74,9 +82,7 @@ function Login() {
                 <button
                   className=" input-button"
                   type="submit"
-                  onClick={handleLogIn}
                 >
-                  LOG IN
                 </button>
               </div>
             </div>
